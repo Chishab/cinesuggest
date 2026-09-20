@@ -48,7 +48,7 @@ The repository includes `render.yaml` for deployment on Render. Push the project
 
 ```text
 Build Command: pip install -r requirements.txt
-Start Command: python -m scripts.init_db && python -m scripts.seed_movies && gunicorn app:app
+Start Command: python -m scripts.init_db && python -m scripts.seed_movies && gunicorn wsgi:app
 ```
 
 Render will create a public URL such as `https://cinesuggest.onrender.com`. Set `SECRET_KEY` as a generated environment variable and keep `FLASK_DEBUG=0`. The current SQLite database is suitable for a demonstration, but its data can reset on hosts with ephemeral storage. Use a managed PostgreSQL database or persistent disk for a permanent public deployment.

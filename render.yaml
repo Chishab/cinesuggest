@@ -3,7 +3,7 @@ services:
     name: cinesuggest
     runtime: python
     buildCommand: pip install -r requirements.txt
-    startCommand: python -m scripts.init_db && python -m scripts.seed_movies && gunicorn app:app
+    startCommand: python -m scripts.init_db && python -m scripts.seed_movies && gunicorn wsgi:app
     envVars:
       - key: SECRET_KEY
         generateValue: true
