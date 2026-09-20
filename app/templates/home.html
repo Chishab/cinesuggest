@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Home | CineSuggest{% endblock %}
+{% block content %}
+<section class="hero-panel">
+    <div class="hero-copy">
+        <p class="eyebrow">YOUR NEXT WATCH, CURATED</p>
+        <h1>Good stories are<br><em>worth finding.</em></h1>
+        <p class="lead">Search a hand-picked catalog, follow a mood, and let familiar themes lead you somewhere new.</p>
+        <div class="hero-actions">
+    {% if username %}
+        <a class="btn btn-primary" href="{{ url_for('movies.movies') }}">Browse the catalog</a>
+    {% else %}
+        <a class="btn btn-primary" href="{{ url_for('auth.register') }}">Create an account</a>
+    {% endif %}
+            <a class="text-link" href="{{ url_for('movies.movies') }}">Explore the catalog <span>&rarr;</span></a>
+        </div>
+    </div>
+    <div class="hero-poster" aria-label="CineSuggest featured film artwork"><span class="poster-kicker">NOW<br>SHOWING</span><span class="poster-title">Stories<br>after<br>dark</span><span class="poster-meta">CINESUGGEST / 01</span></div>
+</section>
+<section class="home-strip"><div><span class="strip-number">01</span><strong>Search by feeling</strong><span>Find films by title, genre, or story.</span></div><div><span class="strip-number">02</span><strong>Make a connection</strong><span>Compare themes with similar movies.</span></div><div><span class="strip-number">03</span><strong>Keep exploring</strong><span>Your next favorite is nearby.</span></div></section>
+{% endblock %}

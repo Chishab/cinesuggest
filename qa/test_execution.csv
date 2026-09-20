@@ -1,0 +1,23 @@
+Test Case ID,Execution Date,Tester,Environment,Browser,Result,Defect ID,Comments
+TC-REG-001,2026-09-20,QA Student,Local,pytest,PASS,,Automated test
+TC-REG-002,2026-09-20,QA Student,Local,pytest,PASS,,Automated test
+TC-REG-003,2026-09-20,QA Student,Local,pytest,PASS,,Automated test
+TC-REG-004,2026-09-20,QA Student,Local,pytest,PASS,,Automated test
+TC-REG-005,2026-09-20,QA Student,Local,pytest,PASS,,Automated test
+TC-REG-006,2026-09-20,QA Student,Local,pytest,PASS,,Automated test
+TC-LOGIN-001,2026-09-20,QA Student,Local,pytest,PASS,,Automated test
+TC-LOGIN-002,2026-09-20,QA Student,Local,pytest,PASS,,Automated test
+TC-LOGIN-003,2026-09-20,QA Student,Local,pytest,PASS,,Automated test
+TC-LOGOUT-001,2026-09-20,QA Student,Local,pytest,PASS,,Automated test
+TC-SEARCH-001,2026-09-20,QA Student,Local,pytest,PASS,,Automated test
+TC-SEARCH-002,2026-09-20,QA Student,Local,pytest,PASS,,Automated test
+TC-SEARCH-003,2026-09-20,QA Student,Local,pytest,PASS,,Automated test
+TC-FILTER-001,2026-09-20,QA Student,Local,pytest,PASS,,Automated test
+TC-FILTER-003,2026-09-20,QA Student,Local,pytest,PASS,,Automated test
+TC-DETAIL-001,2026-09-20,QA Student,Local,pytest,PASS,,Automated test
+TC-DETAIL-004,2026-09-20,QA Student,Local,pytest,PASS,,Automated test
+TC-REC-001,2026-09-20,QA Student,Local,pytest,PASS,,Automated test
+TC-REC-002,2026-09-20,QA Student,Local,pytest,PASS,,Automated test
+TC-REC-003,2026-09-20,QA Student,Local,pytest,PASS,,Automated test
+TC-SEC-001,2026-09-20,QA Student,Local,pytest,PASS,,Automated test
+TC-UI-001,2026-09-20,QA Student,Local,Manual,NOT RUN,,Requires viewport review

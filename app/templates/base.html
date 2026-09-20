@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}CineSuggest{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark site-nav">
+    <div class="container">
+        <a class="navbar-brand brand-lockup" href="{{ url_for('main.home') }}"><span class="brand-mark">CS</span><span>CineSuggest</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#site-navigation" aria-controls="site-navigation" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="site-navigation">
+            <div class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+                <a class="nav-link" href="{{ url_for('movies.movies') }}">Browse</a>
+                <a class="nav-link" href="{{ url_for('recommendations.recommend') }}">For you</a>
+                <a class="nav-link" href="{{ url_for('dashboard.dashboard') }}">QA dashboard</a>
+                <span class="nav-divider d-none d-lg-block"></span>
+                {% if session.get('user_id') %}
+                    <span class="user-chip">Hi, {{ session.get('username') }}</span>
+                    <a class="nav-link nav-action" data-testid="logout-button" href="{{ url_for('auth.logout') }}">Log out</a>
+                {% else %}
+                    <a class="nav-link" href="{{ url_for('auth.login') }}">Log in</a>
+                    <a class="btn btn-nav" href="{{ url_for('auth.register') }}">Join CineSuggest</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
+<main class="container page-shell">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}" role="alert">{{ message }}</div>
+        {% endfor %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+</main>
+<footer class="site-footer"><div class="container d-flex flex-wrap justify-content-between gap-2"><span>CineSuggest <span class="footer-dot">&middot;</span> thoughtful movie discovery</span><span>Local academic project</span></div></footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

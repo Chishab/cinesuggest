@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}{{ movie.title }} | CineSuggest{% endblock %}
+{% block content %}
+<a class="small text-muted" href="{{ url_for('movies.movies') }}">&larr; Back to movies</a>
+<article class="detail-panel mt-3"><p class="eyebrow">{{ movie.genre }} · {{ movie.year }}</p><div class="d-flex flex-wrap justify-content-between gap-3"><h1>{{ movie.title }}</h1><span class="rating rating-large">{{ "%.1f"|format(movie.rating) }}</span></div><p class="lead">{{ movie.description }}</p><p>Directed by <strong>{{ movie.director }}</strong></p><a class="btn btn-primary" data-testid="recommend-button" href="{{ url_for('recommendations.recommend', movie_id=movie.id) }}">Recommend similar movies</a></article>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Movies | CineSuggest{% endblock %}
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+    <div><p class="eyebrow mb-1">THE CATALOG</p><h1>Browse movies</h1></div>
+    <a class="btn btn-outline-dark" href="{{ url_for('recommendations.recommend') }}">Get recommendations</a>
+</div>
+<form class="row g-2 mb-4" method="get">
+    <div class="col-md-5"><label class="visually-hidden" for="movie-search">Search movies</label><input id="movie-search" class="form-control" name="q" value="{{ query }}" placeholder="Search titles or descriptions" data-testid="movie-search"></div>
+    <div class="col-md-3"><label class="visually-hidden" for="genre">Genre</label><select id="genre" class="form-select" name="genre"><option value="">All genres</option>{% for item in genres %}<option value="{{ item }}" {% if item == genre %}selected{% endif %}>{{ item }}</option>{% endfor %}</select></div>
+    <div class="col-md-2"><select class="form-select" name="sort" aria-label="Sort movies"><option value="title" {% if sort == 'title' %}selected{% endif %}>Title</option><option value="rating" {% if sort == 'rating' %}selected{% endif %}>Rating</option><option value="year" {% if sort == 'year' %}selected{% endif %}>Newest</option></select></div>
+    <div class="col-md-2"><button class="btn btn-primary w-100" type="submit" data-testid="search-button">Search</button></div>
+</form>
+<div class="row g-4">
+{% for movie in movies %}
+    <div class="col-md-6 col-xl-4"><article class="movie-card h-100"><div class="d-flex justify-content-between gap-3"><div><p class="small text-muted mb-1">{{ movie.genre }} · {{ movie.year }}</p><h2 class="h4"><a href="{{ url_for('movies.movie_details', movie_id=movie.id) }}">{{ movie.title }}</a></h2></div><span class="rating">{{ "%.1f"|format(movie.rating) }}</span></div><p>{{ movie.description }}</p><p class="small text-muted mb-0">Directed by {{ movie.director }}</p></article></div>
+{% else %}<div class="col-12"><div class="alert alert-secondary">No movies matched your search.</div></div>{% endfor %}
+</div>
+{% endblock %}

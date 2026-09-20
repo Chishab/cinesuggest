@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}QA Dashboard | CineSuggest{% endblock %}
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4"><div><p class="eyebrow mb-1">QUALITY ASSURANCE</p><h1>QA dashboard</h1></div><span class="text-muted">Source: QA CSV records</span></div>
+<div class="row g-3 mb-4">{% for label, value in [('TOTAL TESTS', metrics.total_tests), ('PASS', metrics.passed), ('FAIL', metrics.failed), ('BLOCKED', metrics.blocked), ('DEFECTS', metrics.total_defects), ('OPEN DEFECTS', metrics.open_defects), ('AUTOMATION PASS RATE', metrics.automation_percentage|string + '%')] %}<div class="col-6 col-lg-3"><div class="metric-card"><span>{{ label }}</span><strong>{{ value }}</strong></div></div>{% endfor %}</div>
+<div class="row g-4"><div class="col-lg-6"><section class="chart-panel"><h2 class="h5">Test results</h2><canvas id="test-result-chart"></canvas></section></div><div class="col-lg-6"><section class="chart-panel"><h2 class="h5">Defect severity</h2><canvas id="defect-severity-chart"></canvas></section></div><div class="col-lg-6"><section class="chart-panel"><h2 class="h5">Defect status</h2><canvas id="defect-status-chart"></canvas></section></div><div class="col-lg-6"><section class="chart-panel"><h2 class="h5">Coverage and automation</h2><canvas id="coverage-chart"></canvas><p class="small text-muted mt-3 mb-0">Requirements covered: {{ metrics.requirements_covered }}/{{ metrics.requirements_total }} ({{ metrics.traceability_percentage }}%). Automated executions: {{ metrics.automation_passed }}/{{ metrics.automation_total }} passed.</p></section></div></div>
+<div id="qa-metrics" data-metrics="{{ metrics|tojson|forceescape }}"></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script><script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

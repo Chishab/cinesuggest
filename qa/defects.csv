@@ -1,0 +1,2 @@
+Defect ID,Title,Description,Module,Steps to Reproduce,Expected Result,Actual Result,Severity,Priority,Status,Assigned To,Created Date,Closed Date,Related Test Case
+DEMO-001,Sample defect record for demonstration,This is clearly marked demo data and is not an observed application failure.,Search,Demonstration record only,No defect should exist,Demo record only,Low,Low,Closed,QA Demo,2026-09-20,2026-09-20,TC-SEARCH-001

@@ -1,0 +1,6 @@
+{
+  "project": "CineSuggest",
+  "generated_at": "2026-09-20",
+  "source": "qa/test_execution.csv",
+  "note": "Metrics are generated from the committed QA execution data. Selenium tests skipped locally when Chrome/WebDriver is unavailable."
+}

@@ -1,0 +1,44 @@
+Test Case ID,Module,Test Scenario,Precondition,Test Steps,Test Data,Expected Result,Actual Result,Status,Priority,Test Type
+TC-REG-001,Registration,Register valid user,User is logged out,Open register; enter valid fields; submit,qauser qa@example.com password123,Account is created and login page appears,Registration successful,PASS,High,Functional
+TC-REG-002,Registration,Reject empty username,Register page open,Leave username empty; submit,Blank username,Validation message appears,Validation shown,PASS,High,Functional
+TC-REG-003,Registration,Reject empty email,Register page open,Leave email empty; submit,Blank email,Validation message appears,Validation shown,PASS,High,Functional
+TC-REG-004,Registration,Reject invalid email,Register page open,Enter malformed email; submit,bad-email,Email validation appears,Validation shown,PASS,Medium,Functional
+TC-REG-005,Registration,Reject short password,Register page open,Enter password shorter than 8; submit,short,Password length message appears,Validation shown,PASS,High,Functional
+TC-REG-006,Registration,Reject duplicate email,Existing account exists,Register same email again,qa@example.com,Duplicate message appears,Duplicate rejected,PASS,High,Functional
+TC-REG-007,Registration,Reject duplicate username,Existing account exists,Register same username again,qauser,Duplicate message appears,Duplicate rejected,PASS,High,Functional
+TC-REG-008,Registration,Trim username whitespace,Register page open,Enter padded username; submit, user2 ,Whitespace is removed,Input trimmed,PASS,Low,Functional
+TC-LOGIN-001,Login,Login valid user,Registered account exists,Enter valid email/password; submit,qa@example.com password123,Home page opens,Home page opened,PASS,High,Functional
+TC-LOGIN-002,Login,Reject wrong password,Registered account exists,Enter correct email and wrong password,wrong-password,Error is shown,Error shown,PASS,High,Functional
+TC-LOGIN-003,Login,Reject unknown email,No matching account,Enter unknown email and password,unknown@example.com,Error is shown,Error shown,PASS,High,Functional
+TC-LOGIN-004,Login,Reject blank fields,Login page open,Submit empty form,Blank fields,Validation/browser feedback appears,Feedback shown,PASS,Medium,Functional
+TC-LOGIN-005,Login,Email is case insensitive,Registered account exists,Use uppercase email with valid password,QA@EXAMPLE.COM,User logs in,User logged in,PASS,Medium,Functional
+TC-LOGIN-006,Login,Password is not exposed,Login page open,Inspect password field,Any password,Field type is password,Field masked,PASS,Medium,Security
+TC-LOGOUT-001,Logout,Logout active user,User is logged in,Click logout,Active session,Login page appears and session clears,Session cleared,PASS,High,Functional
+TC-LOGOUT-002,Logout,Back navigation after logout,User logged out,Use browser back; request protected page,Active session,User is not treated as logged in,Login state absent,PASS,High,Security
+TC-NAV-001,Navigation,Home link works,Application running,Click brand link,None,Home page appears,Home appeared,PASS,Low,Usability
+TC-NAV-002,Navigation,Register link works,Logged out,Click Register,None,Register form appears,Form appeared,PASS,Low,Usability
+TC-NAV-003,Navigation,Login link works,Logged out,Click Login,None,Login form appears,Form appeared,PASS,Low,Usability
+TC-NAV-004,Navigation,Authenticated movie link visible,User logged in,Inspect navigation,None,Movies link appears,Link appears,PASS,Medium,Usability
+TC-SEARCH-001,Search,Search exact title,Movies seeded,Enter known title; submit,The Last Orbit,Matching movie appears,Movie appeared,PASS,High,Functional
+TC-SEARCH-002,Search,Search partial title,Movies seeded,Enter partial title; submit,Orbit,Matching movie appears,Movie appeared,PASS,Medium,Functional
+TC-SEARCH-003,Search,Search description text,Movies seeded,Enter description keyword; submit,planet,Relevant movies appear,Movies appeared,PASS,Medium,Functional
+TC-SEARCH-004,Search,No search matches,Movies seeded,Enter unknown term; submit,zzzz,No results message appears,Message appeared,PASS,Medium,Functional
+TC-SEARCH-005,Search,Search is case insensitive,Movies seeded,Search lowercase title,the last orbit,Matching movie appears,Movie appeared,PASS,Low,Functional
+TC-FILTER-001,Filtering,Filter by genre,Movies seeded,Select Sci-Fi; submit,Sci-Fi,Only Sci-Fi movies appear,Filtered,PASS,High,Functional
+TC-FILTER-002,Filtering,Filter by Drama,Movies seeded,Select Drama; submit,Drama,Only Drama movies appear,Filtered,PASS,Medium,Functional
+TC-FILTER-003,Filtering,Sort by rating,Movies seeded,Select rating sort,None,Highest rating appears first,Sorted,PASS,Medium,Functional
+TC-FILTER-004,Filtering,Sort by newest,Movies seeded,Select newest sort,None,Newest year appears first,Sorted,PASS,Low,Functional
+TC-DETAIL-001,Movie Details,Open movie details,Movies seeded,Click movie title,The Last Orbit,Details page appears,Details appeared,PASS,High,Functional
+TC-DETAIL-002,Movie Details,Show director,Movie details open,Inspect details,None,Director is shown,Director shown,PASS,Low,Functional
+TC-DETAIL-003,Movie Details,Show rating,Movie details open,Inspect details,None,Rating is shown,Rating shown,PASS,Low,Functional
+TC-DETAIL-004,Movie Details,Invalid movie returns 404,Application running,Open invalid movie URL,999999,Not found response appears,404 shown,PASS,Medium,Error Handling
+TC-REC-001,Recommendations,Select movie for recommendations,Movies seeded,Open recommendations; select movie,The Last Orbit,Results appear,Results appeared,PASS,High,Functional
+TC-REC-002,Recommendations,Exclude selected movie,Recommendation results shown,Inspect result list,The Last Orbit,Selected movie is excluded,Excluded,PASS,High,Functional
+TC-REC-003,Recommendations,Show similarity score,Recommendation results shown,Inspect cards,None,Match percentage appears,Score shown,PASS,Medium,Functional
+TC-REC-004,Recommendations,Show approximately six results,Enough movies seeded,Select movie,The Last Orbit,Up to six results appear,Six shown,PASS,Medium,Functional
+TC-REC-005,Recommendations,Handle no movie selected,Recommendations page open,Submit without selection,None,No results are shown,No results,PASS,Medium,Validation
+TC-REC-006,Recommendations,Handle invalid movie id,Application running,Open invalid recommendation URL,999999,Not found response appears,404 shown,PASS,Medium,Error Handling
+TC-SEC-001,Security,Passwords are hashed,Database available,Register user; inspect stored record,password123,Stored value differs from password,Hash stored,PASS,High,Security
+TC-SEC-002,Security,Secret key from configuration,Application running,Inspect config loading,None,Environment/config value is used,Config used,PASS,High,Security
+TC-UI-001,UI,Responsive viewport layout,Application running,Open pages at mobile width,375px,Content remains usable,Layout usable,PASS,Medium,Usability
+TC-UI-002,UI,Flash messages visible,Application running,Trigger invalid login,Wrong credentials,Clear alert appears,Alert shown,PASS,Medium,Usability

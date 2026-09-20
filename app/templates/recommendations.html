@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Recommendations | CineSuggest{% endblock %}
+{% block content %}
+<div class="mb-4"><p class="eyebrow mb-1">CONTENT MATCHING</p><h1>Find similar movies</h1><p class="lead">Choose a film and compare its genre and story themes with the catalog.</p></div>
+<form class="row g-2 mb-5" method="get"><div class="col-md-9"><label class="visually-hidden" for="movie-id">Choose a movie</label><select id="movie-id" class="form-select" name="movie_id" required data-testid="movie-select"><option value="">Choose a movie</option>{% for movie in movies %}<option value="{{ movie.id }}" {% if movie.id|string == selected_id %}selected{% endif %}>{{ movie.title }} ({{ movie.genre }})</option>{% endfor %}</select></div><div class="col-md-3"><button class="btn btn-primary w-100" type="submit" data-testid="recommend-button">Recommend</button></div></form>
+{% if selected_movie %}<h2 class="h3 mb-3">Because you liked {{ selected_movie.title }}</h2><div class="row g-4">{% for score, movie in recommendations %}<div class="col-md-6 col-xl-4"><article class="movie-card h-100"><p class="small text-muted mb-1">{{ movie.genre }} · {{ movie.year }} · Match {{ "%.0f"|format(score * 100) }}%</p><h3 class="h4"><a href="{{ url_for('movies.movie_details', movie_id=movie.id) }}">{{ movie.title }}</a></h3><p>{{ movie.description }}</p><strong>{{ "%.1f"|format(movie.rating) }}/10</strong></article></div>{% endfor %}</div>{% endif %}
+{% endblock %}
