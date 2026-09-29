@@ -75,6 +75,13 @@ a { color: inherit; }
 .chart-panel { padding: 1.4rem; }
 .chart-panel h2 { border-bottom: 1px solid var(--line); padding-bottom: 0.8rem; }
 .chart-panel canvas { max-height: 280px; }
+.activity-panel { background: var(--cream); border-top: 3px solid var(--night); padding: clamp(1.2rem, 3vw, 2rem); }
+.activity-table { --bs-table-bg: transparent; --bs-table-color: var(--ink); font-size: 0.86rem; }
+.activity-table th { border-bottom-color: var(--line); color: var(--muted); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.activity-table td { border-bottom-color: var(--line); }
+.event-status { display: inline-block; font-size: 0.7rem; font-weight: 700; padding: 0.28rem 0.55rem; text-transform: uppercase; }
+.event-status-success { background: #d9eee6; color: #17664f; }
+.event-status-error { background: #fbe1da; color: #a13924; }
 .alert { border-radius: 0; }
 
 @media (max-width: 767.98px) {

@@ -13,6 +13,7 @@ CineSuggest is a local Flask movie discovery application with a practical Softwa
 - Selenium browser tests with stable selectors and headless support
 - 40 manual QA test cases, requirements traceability, execution tracking, and demo defect record
 - Flask QA dashboard with Chart.js visualizations
+- Dashboard activity log for registration, login, logout, and recommendation success/errors
 - Generated HTML execution, defect, and QA summary reports
 
 ## Technology
@@ -73,7 +74,7 @@ Selenium requires Google Chrome. Selenium Manager resolves the driver automatica
 
 ## QA Data and Reports
 
-The `qa` directory contains test cases, the requirements traceability matrix, execution records, defects, and summary metadata. `DEMO-001` is explicitly labeled demonstration data and is not an observed product failure.
+The `qa` directory contains test cases, the requirements traceability matrix, execution records, defects, and summary metadata. The dashboard also shows the 50 most recent live application events stored in the SQLite `activity_logs` table. Activity entries intentionally omit passwords, emails, and account names. `DEMO-001` is explicitly labeled demonstration data and is not an observed product failure.
 
 Generate reports from the CSV source files:
 

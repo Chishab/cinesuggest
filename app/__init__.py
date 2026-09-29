@@ -31,6 +31,7 @@ def create_app(config_class=Config):
     with app.app_context():
         from app.models.user import User
         from app.models.movie import Movie
+        from app.models.activity_log import ActivityLog
 
         db.create_all()
 

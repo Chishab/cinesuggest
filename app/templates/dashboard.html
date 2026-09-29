@@ -1,9 +1,32 @@
 {% extends "base.html" %}
 {% block title %}QA Dashboard | CineSuggest{% endblock %}
 {% block content %}
-<div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4"><div><p class="eyebrow mb-1">QUALITY ASSURANCE</p><h1>QA dashboard</h1></div><span class="text-muted">Source: QA CSV records</span></div>
+<div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4"><div><p class="eyebrow mb-1">QUALITY ASSURANCE</p><h1>QA dashboard</h1></div><span class="text-muted">Source: QA records and application activity</span></div>
 <div class="row g-3 mb-4">{% for label, value in [('TOTAL TESTS', metrics.total_tests), ('PASS', metrics.passed), ('FAIL', metrics.failed), ('BLOCKED', metrics.blocked), ('DEFECTS', metrics.total_defects), ('OPEN DEFECTS', metrics.open_defects), ('AUTOMATION PASS RATE', metrics.automation_percentage|string + '%')] %}<div class="col-6 col-lg-3"><div class="metric-card"><span>{{ label }}</span><strong>{{ value }}</strong></div></div>{% endfor %}</div>
 <div class="row g-4"><div class="col-lg-6"><section class="chart-panel"><h2 class="h5">Test results</h2><canvas id="test-result-chart"></canvas></section></div><div class="col-lg-6"><section class="chart-panel"><h2 class="h5">Defect severity</h2><canvas id="defect-severity-chart"></canvas></section></div><div class="col-lg-6"><section class="chart-panel"><h2 class="h5">Defect status</h2><canvas id="defect-status-chart"></canvas></section></div><div class="col-lg-6"><section class="chart-panel"><h2 class="h5">Coverage and automation</h2><canvas id="coverage-chart"></canvas><p class="small text-muted mt-3 mb-0">Requirements covered: {{ metrics.requirements_covered }}/{{ metrics.requirements_total }} ({{ metrics.traceability_percentage }}%). Automated executions: {{ metrics.automation_passed }}/{{ metrics.automation_total }} passed.</p></section></div></div>
+<section class="activity-panel mt-5">
+	<div class="d-flex flex-wrap align-items-end justify-content-between gap-2 mb-3">
+		<div><p class="eyebrow mb-1">LIVE APP EVENTS</p><h2 class="h3 mb-0">Recent activity</h2></div>
+		<span class="small text-muted">Latest 50 events · sensitive credentials are never recorded</span>
+	</div>
+	<div class="table-responsive">
+		<table class="table activity-table align-middle mb-0">
+			<thead><tr><th scope="col">Time</th><th scope="col">Event</th><th scope="col">Result</th><th scope="col">Details</th></tr></thead>
+			<tbody>
+			{% for event in activity_logs %}
+				<tr>
+					<td class="text-nowrap">{{ event.created_at.strftime('%Y-%m-%d %H:%M:%S') }} UTC</td>
+					<td class="text-capitalize">{{ event.event_type }}</td>
+					<td><span class="event-status event-status-{{ event.outcome }}">{{ event.outcome }}</span></td>
+					<td>{{ event.message }}</td>
+				</tr>
+			{% else %}
+				<tr><td colspan="4" class="text-center text-muted py-4">No application events recorded yet.</td></tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</section>
 <div id="qa-metrics" data-metrics="{{ metrics|tojson|forceescape }}"></div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script><script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
 {% endblock %}

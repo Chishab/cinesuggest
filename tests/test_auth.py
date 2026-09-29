@@ -1,4 +1,5 @@
 from app import db
+from app.models.activity_log import ActivityLog
 from app.models.user import User
 
 
@@ -67,3 +68,44 @@ def test_invalid_login_is_rejected(client):
 
     assert response.status_code == 200
     assert b"Invalid email or password" in response.data
+
+
+def test_auth_events_are_logged_without_credentials(client, app):
+    register(client, username="private-user", email="private@example.com")
+    login(client, email="private@example.com", password="wrong-password")
+    login(client, email="private@example.com")
+
+    with app.app_context():
+        events = db.session.scalars(
+            db.select(ActivityLog).order_by(ActivityLog.id)
+        ).all()
+        event_data = " ".join(event.message for event in events)
+
+    assert [(event.event_type, event.outcome) for event in events] == [
+        ("registration", "success"),
+        ("login", "error"),
+        ("login", "success"),
+    ]
+    assert "private@example.com" not in event_data
+    assert "wrong-password" not in event_data
+    assert "password123" not in event_data
+
+
+def test_registration_errors_are_logged(client, app):
+    client.post(
+        "/register",
+        data={"username": "", "email": "bad-email", "password": "short"},
+    )
+    register(client)
+    register(client, username="another", email="ada@example.com")
+
+    with app.app_context():
+        events = db.session.scalars(
+            db.select(ActivityLog).where(ActivityLog.event_type == "registration")
+        ).all()
+
+    assert [(event.outcome, event.message) for event in events] == [
+        ("error", "Registration rejected: required fields missing"),
+        ("success", "A new account was registered"),
+        ("error", "Registration rejected: account already exists"),
+    ]

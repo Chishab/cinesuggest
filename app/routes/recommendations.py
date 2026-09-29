@@ -1,7 +1,8 @@
-from flask import Blueprint, redirect, render_template, request, url_for
+from flask import Blueprint, flash, redirect, render_template, request, url_for
 
 from app import db
 from app.models.movie import Movie
+from app.services.activity import record_activity
 from app.services.recommender import recommend_movies
 
 recommendations_bp = Blueprint("recommendations", __name__)
@@ -21,10 +22,27 @@ def recommend():
 
     if selected_id:
         try:
-            selected_movie = db.get_or_404(Movie, int(selected_id))
-            results = recommend_movies(selected_movie, movies)
+            movie_id = int(selected_id)
         except (TypeError, ValueError):
-            selected_movie = None
+            movie_id = None
+
+        selected_movie = db.session.get(Movie, movie_id) if movie_id is not None else None
+        if selected_movie is None:
+            record_activity("recommendation", "error", "Recommendation failed: selected movie was not found")
+            flash("Choose a valid movie to get recommendations.", "danger")
+        else:
+            results = recommend_movies(selected_movie, movies)
+            if results:
+                record_activity(
+                    "recommendation",
+                    "success",
+                    f"Generated {len(results)} recommendations for {selected_movie.title}",
+                )
+            else:
+                record_activity(
+                    "recommendation", "error", "Recommendation failed: no results available"
+                )
+                flash("No recommendations are available for this movie yet.", "warning")
 
     return render_template(
         "recommendations.html",
